@@ -22,7 +22,7 @@ $config['admin_list.module_menu']	= array(
 						'dashboard/index'   => 'Dashboard Panel',
 						'user/index'	    => 'Users',
 						'usergroup/index'   => 'User Groups',
-						'language/index'    => 'Languages',
+						//'language/index'    => 'Languages',
 						'setting/index'	    => 'Settings'
 						);
 									
@@ -55,7 +55,7 @@ $config['modulelist'] = array(
 					'admin/UserGroupPermissions',
 					'admin/Languages',
 					'admin/Settings',
-					'admin/ServerLogs',
+					//'admin/ServerLogs',
 					'admin/Sessions'
 					),
 		// Admin module menus
@@ -71,7 +71,7 @@ $config['modulelist'] = array(
 					// Setting index
 					'setting/index'     => 'Settings',
 					// Server Log index
-					'serverlog/index'   => 'Server Logs'
+					//'serverlog/index'   => 'Server Logs'
 					),
 		// Admin module functions
 		'module_function'	=> array(
@@ -110,11 +110,11 @@ $config['modulelist'] = array(
 						'setting/delete'    => 'Delete Setting',
 						'setting/change'    => 'Change Setting Status',
 						// Server Log functions
-						'serverlog/view'	=> 'View Server Log',
-						'serverlog/edit'	=> 'Edit Server Log',
-						'serverlog/delete'	=> 'Delete Server Log',
-						'serverlog/trash'	=> 'Trash Server Log',
-						'serverlog/export'	=> 'Export Server Log Data' /** Export Server Log data  **/						
+						//'serverlog/view'	=> 'View Server Log',
+						//'serverlog/edit'	=> 'Edit Server Log',
+						//'serverlog/delete'	=> 'Delete Server Log',
+						//'serverlog/trash'	=> 'Trash Server Log',
+						//'serverlog/export'	=> 'Export Server Log Data' /** Export Server Log data  **/						
 						)
 	),
 	// Page module
@@ -155,54 +155,6 @@ $config['modulelist'] = array(
 						'pagemenu/index/print'	=> 'Print Page Menu'
 					    ),
 	),
-	// Career module
-	'Career' => array (
-		// Career Models list
-		'models'		=> array('career/Careers','career/Divisions','career/Applicants'),
-		// Career module menus
-		'module_menu'	=> array(
-						'career/index'		=> 'Careers',
-						'division/index'	=> 'Divisions',
-						'applicant/index'	=> 'Applicants',
-						'employee/index'	=> 'Employees'
-						),
-		// Career module functions
-		'module_function'	=> array(
-						// Career functions
-						'career/index/add'	=> 'Add Career',
-						'career/index/view'	=> 'View Career',
-						'career/index/edit'	=> 'Edit Career',
-						'career/index/delete'	=> 'Delete Career',
-						'career/index/change'	=> 'Change Career Status',
-						'career/index/export'	=> 'Export Career',
-						'career/index/print'	=> 'Print Career',
-						// Division functions
-						'division/index/add'	=> 'Add Division',
-						'division/index/view'	=> 'View Division',
-						'division/index/edit'	=> 'Edit Division',
-						'division/index/delete'	=> 'Delete Division',
-						'division/index/change'	=> 'Change Division Status',
-						'division/index/export' => 'Export Division',
-						'division/index/print'	=> 'Print Division',
-						// Applicant functions
-						'applicant/index/add'	 => 'Add Applicant',
-						'applicant/index/view'	 => 'View Applicant',			
-						'applicant/index/edit'	 => 'Edit Applicant',			
-						'applicant/index/delete' => 'Delete Applicant',
-						'applicant/index/change' => 'Change Applicant',
-						'applicant/index/export' => 'Export Applicant',
-						'applicant/index/print'	 => 'Print Applicant',
-						// Employee functions
-						'employee/index/add'	=> 'Add Employee',
-						'employee/index/view'	=> 'View Employee',			
-						'employee/index/edit'	=> 'Edit Employee',			
-						'employee/index/delete' => 'Delete Employee',
-						'employee/set'			=> 'Set to Employee',
-						'employee/index/change' => 'Change Employee',
-						'employee/index/export' => 'Export Employee',
-						'employee/index/print'	=> 'Print Employee'
-						),
-	),
 	// Questionnaire module
 	'Questionnaire' => array (
 		// Questionnaire Models list
@@ -241,75 +193,16 @@ $config['modulelist'] = array(
 						'questionrule/index/print'	=> 'Print Question Rule',
 						),
 	),
-	// Qrcode module
-	'Qrcode' => array (
-		// Qrcode Models list
-		'models'		=> array('qrcode/Qrcodes'),
-		// Qrcode module menus
-		'module_menu'	=> array(
-						'qrcode/index'			=> 'QR Codes',
-						'qrcodescanner/index'	=> 'QR Code Scanner'
-						),
-		// Qrcode module functions
-		'module_function'	=> array(
-						// Qrcode functions
-						'qrcode/index/add'	=> 'Add QR Code',
-						'qrcode/index/view'	=> 'View QR Code',
-						'qrcode/index/edit'	=> 'Edit QR Code',
-						'qrcode/index/delete'	=> 'Delete QR Code',
-						'qrcode/index/change'	=> 'Change QR Code Status',
-						'qrcode/index/export'	=> 'Export QR Code',
-						'qrcode/index/print'	=> 'Print QR Code'
-						),
-	),
-	// Color Recognizer module
-	'Color' => array (
-		// Color Recognizer Models list
-		'models'		=> array('color/Colors','color/Colorcontents','color/Colorpersonals'),
-		// Color Recognizer module menus
-		'module_menu'	=> array(
-						'color/index'			=> 'Color Data',
-						'colorcontent/index'	=> 'Color Content',
-						'colorpersonal/index'	=> 'Color Personal',
-						'colorscanner/index'	=> 'Color Scanner'
-						),
-		// Color Recognizer module functions
-		'module_function'	=> array(
-						// Color Recognizer functions
-						'color/index/add'	=> 'Add Color Recognizer',
-						'color/index/view'	=> 'View Color Recognizer',
-						'color/index/edit'	=> 'Edit Color Recognizer',
-						'color/index/delete'	=> 'Delete Color Recognizer',
-						'color/index/change'	=> 'Change Color Recognizer Status',
-						'color/index/export'	=> 'Export Color Recognizer',
-						'color/index/print'	=> 'Print Color Recognizer',
-						// Color Content functions
-						'colorcontent/index/add'	=> 'Add Color Content',
-						'colorcontent/index/view'	=> 'View Color Content',
-						'colorcontent/index/edit'	=> 'Edit Color Content',
-						'colorcontent/index/delete'	=> 'Delete Color Content',
-						'colorcontent/index/change'	=> 'Change Color Content Status',
-						'colorcontent/index/export'	=> 'Export Color Content',
-						'colorcontent/index/print'	=> 'Print Color Content',
-						// Color Personal functions
-						'colorpersonal/index/add'	=> 'Add Color Personal',
-						'colorpersonal/index/view'	=> 'View Color Personal',
-						'colorpersonal/index/edit'	=> 'Edit Color Personal',
-						'colorpersonal/index/delete'	=> 'Delete Color Personal',
-						'colorpersonal/index/change'	=> 'Change Color Personal Status',
-						'colorpersonal/index/export'	=> 'Export Color Personal',
-						'colorpersonal/index/print'	=> 'Print Color Personal'
-						)
-	),
     // Participant Module
     'Participant' => array(// Career Models list
-		'models'    => array('participant/Participants','participant/Attachments'),
+		'models'    => array('participant/Participants','participant/Answers'),
 		// Participant module menus
 		'module_menu'		=> array(
                     'participant/index' => 'Participant',
-                    'attachment/index'	=> 'Attachment'
+                    'participant_answer/index'	=> 'Participant Answer'
         ),
 		// Participant module functions
+		/*
 		'module_function'	=> array(
                     // Participant functions
                     'participant/index/add'	    => 'Add Participant',
@@ -327,8 +220,20 @@ $config['modulelist'] = array(
                     'attachment/index/change'  => 'Change Attachment Status',
                     'attachment/index/export'  => 'Export Attachment',
                     'attachment/index/print'   => 'Print Attachment',
-        )
+        ) */
+
+		'module_function'	=> array(
+                    // Participant functions
+                    'participant_answer/index/add'	    => 'Add Participant Answer',
+                    'participant_answer/index/view'    => 'View Participant Answer',
+                    'participant_answer/index/edit'    => 'Edit Participant Answer',
+                    'participant_answer/index/delete'  => 'Delete Participant Answer',
+                    'participant_answer/index/change'  => 'Change Participant Answer Status',
+                    'participant_answer/index/export'  => 'Export Participant Answer',
+                    'participant_answer/index/print'   => 'Print Participant Answer'
+        ) 
 	),	
+	/*
 	// Conference module
 	'Conference' => array (
 		// Career Models list
@@ -407,6 +312,7 @@ $config['modulelist'] = array(
                 'conference_banner/index/print'	=> 'Print Banner'
                 ),
 	)
+	*/
 );
 
 

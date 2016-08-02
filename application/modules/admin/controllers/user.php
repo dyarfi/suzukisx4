@@ -361,7 +361,8 @@ class User extends Admin_Controller {
         }
 
         // Check if user data ID is found and redirect if false
-        $user = $this->Users->with('profile')->get($id);
+        //$user = $this->Users->with('profile')->get($id);
+        $user = $this->Users->getUser($id);
         
         if (!count($user)){
             $this->session->set_flashdata('message',"Data not found.");			

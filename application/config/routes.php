@@ -57,20 +57,20 @@ $route[$admin.'/usergroup/(:any)']	= 'admin/usergroup/$1';
 $route[$admin.'/language/(:any)']	= 'admin/language/$1';
 $route[$admin.'/modulelist/(:any)']	= 'admin/modulelist/$1';
 $route[$admin.'/setting/(:any)']	= 'admin/setting/$1'; 
-$route[$admin.'/serverlog/(:any)']	= 'admin/serverlog/$1';
+//$route[$admin.'/serverlog/(:any)']	= 'admin/serverlog/$1';
 /***** Administrator module menu mandatory [end] *****/
 
-$route[$admin.'/career/(:any)']		= 'career/$1';
-$route[$admin.'/division/(:any)']	= 'career/division/$1';
-$route[$admin.'/applicant/(:any)']	= 'career/applicant/$1';
-$route[$admin.'/employee/(:any)']	= 'career/employee/$1';
+//$route[$admin.'/career/(:any)']		= 'career/$1';
+//$route[$admin.'/division/(:any)']	= 'career/division/$1';
+//$route[$admin.'/applicant/(:any)']	= 'career/applicant/$1';
+//$route[$admin.'/employee/(:any)']	= 'career/employee/$1';
 
 $route[$admin.'/page/(:any)']		= 'page/$1';
 $route[$admin.'/pagemenu/(:any)']	= 'page/pagemenu/$1';
 $route[$admin.'/page_gallery/(:any)']  = 'page/page_gallery/$1';
 
-$route[$admin.'/qrcode/(:any)']			= 'qrcode/$1';
-$route[$admin.'/qrcodescanner/(:any)']	= 'qrcode/qrcodescanner/$1';
+$route[$admin.'/news/(:any)']		   = 'news/$1';
+//$route[$admin.'/qrcodescanner/(:any)']	= 'qrcode/qrcodescanner/$1';
 
 $route[$admin.'/questionnaire/(:any)']		= 'questionnaire/$1';
 $route[$admin.'/question/(:any)']			= 'questionnaire/question/$1';
@@ -82,23 +82,23 @@ $route[$admin.'/participant/(:any)']			= 'participant/$1';
 $route[$admin.'/participant_answer/(:any)']		= 'participant/participant_answer/$1';
 
 // Color
-$route[$admin.'/color/(:any)']			= 'color/$1';
-$route[$admin.'/colorscanner/(:any)']	= 'color/colorscanner/$1';
-$route[$admin.'/colorcontent/(:any)']	= 'color/colorcontent/$1';
-$route[$admin.'/colorpersonal/(:any)']	= 'color/colorpersonal/$1';
+//$route[$admin.'/color/(:any)']			= 'color/$1';
+//$route[$admin.'/colorscanner/(:any)']		= 'color/colorscanner/$1';
+//$route[$admin.'/colorcontent/(:any)']		= 'color/colorcontent/$1';
+//$route[$admin.'/colorpersonal/(:any)']	= 'color/colorpersonal/$1';
 
 // Participant and Attachment Routes
-$route[$admin.'/participant/(:any)']	= 'participant/$1';
-$route[$admin.'/attachment/(:any)']		= 'participant/attachment/$1';
+//$route[$admin.'/participant/(:any)']	= 'participant/$1';
+//$route[$admin.'/attachment/(:any)']		= 'participant/attachment/$1';
 
 // Conference module routes
-$route[$admin.'/conference/(:any)']	 = 'conference/$1';
-$route[$admin.'/information/(:any)'] = 'conference/information/$1';
-$route[$admin.'/schedule/(:any)']	 = 'conference/schedule/$1';
-$route[$admin.'/speaker/(:any)']	 = 'conference/speaker/$1';
-$route[$admin.'/submission/(:any)']	 = 'conference/submission/$1';
-$route[$admin.'/conference_gallery/(:any)']  = 'conference/conference_gallery/$1';
-$route[$admin.'/conference_banner/(:any)']  = 'conference/conference_banner/$1';
+//$route[$admin.'/conference/(:any)']	 = 'conference/$1';
+//$route[$admin.'/information/(:any)'] = 'conference/information/$1';
+//$route[$admin.'/schedule/(:any)']	 = 'conference/schedule/$1';
+//$route[$admin.'/speaker/(:any)']	 = 'conference/speaker/$1';
+//$route[$admin.'/submission/(:any)']	 = 'conference/submission/$1';
+//$route[$admin.'/conference_gallery/(:any)']  = 'conference/conference_gallery/$1';
+//$route[$admin.'/conference_banner/(:any)']  = 'conference/conference_banner/$1';
 
 //$route[$admin.'/(:any)'] = '$1';
 
@@ -107,9 +107,11 @@ $route[$admin.'/conference_banner/(:any)']  = 'conference/conference_banner/$1';
 | MODULE ADMIN PANEL ROUTING - [END]
 | ------------------------------------------------------------------------- 
 */
+$route['page/toc']				 = 'page/detail/toc';
+$route['page/privacy']			 = 'page/detail/privacy';
 
 $route['default_controller'] = 'home';
-//$route['example'] 			 = 'example/request_dropbox';
+//$route['example'] 		 = 'example/request_dropbox';
 //$route['(:any)']			 = 'home/menu/$1';
 //$route['(:any)/page/(:any)'] = 'home/page/$1/$2';
 $route['download/(:num)']	 = 'download';

@@ -23,7 +23,7 @@ class Public_Controller extends MY_Controller {
 
 		// Load site models
 		$this->load->model('admin/Configurations');
-		$this->load->model('admin/ServerLogs');
+		//$this->load->model('admin/ServerLogs');
 		$this->load->model('admin/Settings');
         $this->load->model('participant/Participants');        
         $this->load->model('participant/Attachments');
@@ -37,7 +37,7 @@ class Public_Controller extends MY_Controller {
 		self::getSiteStatus();
 		
 		// Set site user access logs
-		self::setAccessLog(1);
+		//self::setAccessLog(1);
 		
 		if($this->config->item('site_open') === FALSE)
         {

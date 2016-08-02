@@ -102,21 +102,25 @@ class Admin_Controller extends CI_Controller {
 			
 			$url_to_match = '';
 			
-			if ($controller != '' && $action != '') $url_to_match = $this->module_request;	
+			$param = is_numeric(str_replace('/', '',$param)) ? '' : $param;
+			
+			//if ($controller != '' && $action != '') $url_to_match = $controller .'/'. $action . $param;	
 
+			if ($controller != '' && $action != '') $url_to_match = $controller .'/'. $action;				
+				
 			$function_modules 	= array_merge_recursive($module_list, $module_function_list);
-
+			
 			// Define all accessible function action into TRUE
 			foreach ($function_modules as $modules) {
-
+			
 				if (!empty($modules[$url_to_match])) {
-				
+
 					$accessible = TRUE;		
 
 				}
 
 			}
-
+			
 			// Define controller or post that don't have to be checked
 			if ($accessible === FALSE 
 					// For Bypassing admin-panel reload_captcha method in all classes
@@ -129,13 +133,19 @@ class Admin_Controller extends CI_Controller {
 					&& $action != 'order'
 					// For Bypassing admin-panel download method in all classes
 					&& $action != 'download'
+					// For Bypassing admin-panel translate method in all classes
+					&& $action != 'translate'										
+					// For Bypassing admin-panel translate detail method in all classes
+					&& $action != 'detail'					
 					// For Bypassing authentication controller in @admin-panel/authentication
 					&& $controller != 'authenticate'
+					// For Bypassing authentication controller in @admin-panel/authentication
+					&& $controller != 'dashboard'					
 					// For Bypassing redirect in each @controller provides
 					&& $controller != 'baseadmin') {
 				
 				$message = $param ? str_replace('/', '', $param) : $action;
-			
+
 				if ($this->input->is_ajax_request()) {
 					// Send permission message to client
 					echo 'You do not have permission to '.$message;
@@ -147,7 +157,6 @@ class Admin_Controller extends CI_Controller {
 				 * Set session 'acl_error' if action not accessible for users
 				 */
 
-				
 				$this->session->set_flashdata('message', 'You do not have permission to '.$message.'!');
 				redirect(ADMIN . $this->controller. '/index');
 				
