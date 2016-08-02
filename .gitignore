@@ -1,0 +1,9 @@
+assets/static/captcha/image/*
+*/config/development
+*/logs/log-*.php
+*/logs/!index.html
+*/cache/*
+*/cache/!index.html
+*/cache/!.htaccess
+uploads/*
+.DS_Store
