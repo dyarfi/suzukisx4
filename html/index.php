@@ -24,7 +24,7 @@
       </div>
 
       <div class="article-item">
-        <div class="col-md-4">            
+        <div class="col-xs-12 col-sm-4 col-md-4">            
           <div class="thumbnail">
             <div class="caption">
               <div class="text-caption">
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">            
+        <div class="col-xs-12 col-sm-4 col-md-4">            
           <div class="thumbnail">
             <div class="caption">
               <div class="text-caption">
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">            
+        <div class="col-xs-12 col-sm-4 col-md-4">            
           <div class="thumbnail">
             <div class="caption">
               <div class="text-caption">
