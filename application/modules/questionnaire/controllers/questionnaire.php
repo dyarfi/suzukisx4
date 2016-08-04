@@ -32,6 +32,8 @@ class Questionnaire extends Admin_Controller {
     public function index() {
         try {
             $crud = new grocery_CRUD();
+            // Unset all the "back to list" buttons and messages.
+            $crud->unset_back_to_list();            
             $crud->set_table($this->Questionnaires->table);
             $crud->set_subject('List Questionnaire');
             $crud->display_as('user_id', 'User');

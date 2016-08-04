@@ -32,6 +32,8 @@ class Question extends Admin_Controller {
     public function index() {
         try {
             $crud = new grocery_CRUD();
+            // Unset all the "back to list" buttons and messages.
+            $crud->unset_back_to_list();            
             $crud->set_table($this->Questions->table);
             $crud->set_subject('List Questions');
             $crud->columns('question_text', 'questionnaire_id','status');                      

@@ -48,6 +48,8 @@ class Submission extends Admin_Controller {
         try {
 			// Set our Grocery CRUD
             $crud = new grocery_CRUD();
+            // Unset all the "back to list" buttons and messages.
+            $crud->unset_back_to_list();            
 			// Set query for Submission
 			//$crud->where('group_id',100);
 			//$crud->where('tbl_users.status','1');

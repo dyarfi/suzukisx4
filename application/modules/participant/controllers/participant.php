@@ -20,6 +20,8 @@ class Participant extends Admin_Controller {
         try {
 	    // Set our Grocery CRUD
             $crud = new grocery_CRUD();
+            // Unset all the "back to list" buttons and messages.
+            $crud->unset_back_to_list();            
             // Set tables
             $crud->set_table($this->Participants->table)->order_by('join_date','desc');
             // Set CRUD subject
