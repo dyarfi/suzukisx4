@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="submit-quiz">
-            <button class="btn btn-hero btn-sm" role="button"><a href="">SUBMIT</a></button>
+            <a href=""><button class="btn btn-hero btn-sm" role="button">SUBMIT</button></a>
             <div class="tnc"><a href="terms.php">Terms &amp; Conditions</a></div>
           </div>
         </div>

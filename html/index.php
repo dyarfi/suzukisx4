@@ -11,7 +11,7 @@
               <h1><span>Test your</span> s-cross <span>knowledge</span></h1>        
               <h4>and get lucky with exciting prizes!</h4>
           </hgroup>
-          <button class="btn btn-hero btn-sm" role="button"><a href="quiz.php">ENTER QUIZ</a></button>
+          <a href="quiz.php"><button class="btn btn-hero btn-sm" role="button">ENTER QUIZ</button></a>
           <div class="tnc"><a href="terms.php">Terms &amp; Conditions</a></div>
         </div>
       </div>
