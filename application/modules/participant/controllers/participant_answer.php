@@ -31,15 +31,21 @@ class Participant_Answer extends Admin_Controller {
         try {
 			// Set our Grocery CRUD
             $crud = new grocery_CRUD();
+            // Unset all the "back to list" buttons and messages.
+            $crud->unset_back_to_list();            
             // Set tables
             $crud->set_table($this->Answers->table);
             // Set CRUD subject
             $crud->set_subject('Answer');                            
             // Set table relation
-            $crud->set_relation('participant_id','tbl_participants','email');
+            $crud->set_relation('participant_id','tbl_participants','email',array('status' => '1'),'priority ASC');
+            $crud->set_relation('question_id','tbl_questions','question_text',array('status' => '1'),'priority ASC');
             // Set column
-			$crud->columns('type', 'participant_id','file_name','status','added','modified');
+			$crud->columns('participant_id', 'question_id', 'status', 'added','modified');
 			
+			// Set column display 
+            //$crud->display_as('menu_id','Menu');
+
             //$crud->columns('subject','name','menu_id','synopsis','text','status','added','modified');			
 			// The fields that user will see on add and edit form
 			//$crud->fields('subject','name','menu_id','synopsis','text','publish_date','unpublish_date','status','added','modified');
@@ -66,7 +72,9 @@ class Participant_Answer extends Admin_Controller {
 			$crud->edit_fields('status','modified');			
 			$crud->callback_column('added',array($this,'_callback_time'));
 			$crud->callback_column('modified',array($this,'_callback_time'));
-			$crud->callback_column('file_name',array($this,'_callback_filename'));
+			//$crud->callback_column('file_name',array($this,'_callback_filename'));
+			$crud->callback_column('answer',array($this,'_callback_answer'));
+			
 			$state = $crud->getState();
 			
 			if ($state == 'export')
@@ -116,6 +124,11 @@ class Participant_Answer extends Admin_Controller {
         return '<div class="text-center"><a href="'.base_url('uploads/gallery/'.$row->file_name).'" class="image-thumbnail"><img height="110px" src="'.base_url('uploads/gallery/'.$row->file_name).'"/></a></div>';
     }
 	
+	public function _callback_answer($value, $row) {
+	
+    	print_r($value);
+	}
+
 	public function _callback_filename_url($value, $row) {
 		return ($row->file_name) ? base_url('uploads/users/'.$row->file_name) : '-';
 	}

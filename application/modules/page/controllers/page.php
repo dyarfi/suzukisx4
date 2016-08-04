@@ -34,8 +34,10 @@ class Page extends Admin_Controller {
 	
     public function index() {
         try {
-	    // Set our Grocery CRUD
+	       // Set our Grocery CRUD
             $crud = new grocery_CRUD();
+            // Unset all the "back to list" buttons and messages.
+            $crud->unset_back_to_list();            
             // Set tables
             $crud->set_table($this->Pages->table);
             // Set CRUD subject

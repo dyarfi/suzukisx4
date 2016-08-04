@@ -30,6 +30,8 @@ class Questionrule extends Admin_Controller {
     public function index() {
         try {
             $crud = new grocery_CRUD();
+            // Unset all the "back to list" buttons and messages.
+            $crud->unset_back_to_list();            
             $crud->set_table($this->Questionrules->table);
             $crud->set_subject('List Question Rules');
             $crud->set_relation('question_id',$this->Questions->table,'name');
