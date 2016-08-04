@@ -24,38 +24,36 @@
       </div>
 
       <div class="article-item">
+        
         <div class="col-xs-12 col-sm-4 col-md-4">            
           <div class="thumbnail">
-            <div class="caption">
-              <div class="text-caption">
-                <p>21 juli 2016</p>
-                <h3><a href="article-page.php">Thumbnail Headline Dari berita</a></h3>
-              </div>
+            <div class="text-caption">
+              <p>21 juli 2016</p>
+              <h3><a href="article-page.php">Thumbnail Headline Dari berita</a></h3>
             </div>
+            <div class="caption"></div>
             <img class="img-responsive" src="img/article-01.jpg" />
           </div>
         </div>
 
         <div class="col-xs-12 col-sm-4 col-md-4">            
           <div class="thumbnail">
-            <div class="caption">
-              <div class="text-caption">
-                <p>22 juli 2016</p>
-                <h3><a href="article-page.php">Thumbnail Headline Dari berita Thumbnail Headline Dari berita</a></h3>
-              </div>
+            <div class="text-caption">
+              <p>21 juli 2016</p>
+              <h3><a href="article-page.php">Thumbnail Headline Dari berita</a></h3>
             </div>
+            <div class="caption"></div>
             <img class="img-responsive" src="img/article-02.jpg" />
           </div>
         </div>
 
         <div class="col-xs-12 col-sm-4 col-md-4">            
           <div class="thumbnail">
-            <div class="caption">
-              <div class="text-caption">
-                <p>23 juli 2016</p>
-                <h3><a href="article-page.php">Thumbnail Headline Dari berita</a></h3>
-              </div>
+            <div class="text-caption">
+              <p>21 juli 2016</p>
+              <h3><a href="article-page.php">Thumbnail Headline Dari berita</a></h3>
             </div>
+            <div class="caption"></div>
             <img class="img-responsive" src="img/article-03.jpg" />
           </div>
         </div>

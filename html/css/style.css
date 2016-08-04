@@ -230,6 +230,12 @@ body {
 	bottom: 20px;
 	left: 20px;
 	text-align: left;
+	z-index: 3;
+}
+.text-caption p {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: 0.9em;
 }
 .navbar-nav>li>a {
     font-family: 'decimaproa-boldobuploadedfile';
