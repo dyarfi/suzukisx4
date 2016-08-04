@@ -260,7 +260,14 @@ body {
 	font-size: 1.3em;
 	font-weight: 700;
 }
-.submit-quiz .btn-sm, .hero .btn-sm {padding: 0 50px;}
+.submit-quiz .btn-sm, .hero .btn-sm {
+    padding: 6px 50px;
+    color: #000;
+    background: #fff;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-shadow: none;
+}
 .article{
 	float: left;
 	background: #000099;
