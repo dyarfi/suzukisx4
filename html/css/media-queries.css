@@ -100,3 +100,11 @@
     
 }
 
+/* custom fix media */
+@media only screen and (width: 600px){
+	.navbar-brand>img {
+		width: 60%;
+		margin-left: 15px;
+	}
+	.navbar-toggle{margin-right: 30px;}
+}
