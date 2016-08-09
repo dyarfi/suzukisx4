@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 // Preset PHP settings
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 //set_time_limit(30);
 
 //require_once 'application/libraries/IP2Location/IP2Location.php';
@@ -36,11 +36,10 @@ class Home extends Public_Controller {
 		$this->load->model('admin/Settings');
 		
 		// Load Career data
-		$this->load->model('career/Careers');
+		//	$this->load->model('career/Careers');
 
 		// Load User related model in admin module
-		$this->load->model('page/Pagemenus');
-		$this->load->model('page/Pages');
+		$this->load->model('article/Articles');
 		
 		/*
 		// Load IP2Location Class file without calling the _construct method
@@ -76,25 +75,12 @@ class Home extends Public_Controller {
 	
 	public function index() {
 		
-					
-		// Set site title page with module menu
-		$data['page_title'] = $this->config->item('site_name') .' | '. $this->Settings->getByParameter('title_default')->value;
-		
-		// Set facebook link data
-		$data['vacancies']	= $this->Careers->getAllCareer();
 
-		// Set Gallery Data
-		$data['gallery'] 		= $this->Attachments->getAllAttachment('fabric');
+		$data['articles'] =	$this->Articles->getAllArticles(); 
+
+		// Set site title page with module menu
+		$data['page_title'] = 'Home';		
 				
-		// Set facebook link data
-		$data['facebook']	= $this->Settings->getByParameter('socmed_facebook');
-				
-		// Set twitter link data
-		$data['twitter']	= $this->Settings->getByParameter('socmed_twitter');
-		
-		// Set google link data
-		$data['google']		= $this->Settings->getByParameter('socmed_gplus');
-		
 		// Set contact email info data
 		$data['email_info']	= $this->Settings->getByParameter('email_info');		
 		

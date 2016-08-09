@@ -18,7 +18,7 @@
 					</li>
 					<li>
 						<a href="#">
-							Setting Control
+							<?php echo 'Settings';?> Control
 						</a>
 						<i class="fa fa-angle-right"></i>
 					</li>
@@ -32,8 +32,12 @@
 			</div>
 		</div>	
 		<!-- BEGIN FORM-->
-		<?php echo form_open(base_url(ADMIN).'/'.$class_name.'/'.($action ? $action .'/'. $param :''),['id'=>$class_name.'-form','class'=>'form-horizontal','enctype'=>'multipart/form-data','role'=>'form']);?>
-			<div class="form-body">
+		<?php 
+		$attributes = array('class' => 'form-horizontal '.$class_name, 'id' => $class_name);			
+		$action = base_url(ADMIN).'/'.$class_name.'/'.(($action) ? $action .'/'. $param :'');
+		echo form_open_multipart($action, $attributes);
+		?>
+		<div class="form-body">
 				<!--/row-->
 				<div class="row">
 					<div class="col-md-6">
@@ -68,7 +72,17 @@
 								<div class="input-group">
 									<?php if ($fields->show_editor) { ?>
 									<textarea name="value" class="form-control wysihtml5" id="value" rows="15" cols="600"><?php echo $fields->value;?></textarea>
-									<?php } else  {?>
+									<?php } elseif ($fields->input_type =='file') {
+										if ($fields->value !='') { ?>
+										<div class="form-group">
+											<img src="<?php echo base_url('assets/static/img/'.$fields->value);?>"/>
+										</div>
+										<span class="help-block small">Replace Image ?</span>
+										<?php } ?>
+										<input type="hidden" name="input_type" value="file"/>
+										<input type="file" class="form-control input-xs" name="value" placeholder="Value" value="<?php echo $fields->value;?>" id="value">
+										<input type="hidden" name="value" value="<?php echo $fields->value;?>"/>
+									<?php } else {?>
 									<input type="text" class="form-control" name="value" placeholder="Value" value="<?php echo $fields->value;?>" id="value">
 									<?php } ?>
 								</div>
@@ -83,7 +97,7 @@
 									<textarea name="help_text" class="form-control" id="value" rows="2" cols="600"><?php echo $fields->help_text;?></textarea>
 								</div>
 								<span class="help-block small">Help comments for the fields</span>
-								<span class="help-block"><?php echo $errors['value'];?></span>
+								<span class="help-block"><?php echo $errors['help_text'];?></span>
 							</div>
 						</div>
 					</div>
@@ -113,8 +127,8 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="col-md-offset-3 col-md-9">
-							<button class="btn green" type="submit">Submit</button>
-							<button class="btn default" type="reset">Cancel</button>
+							<button class="btn green" type="submit"><?php echo 'Submit';?></button>
+							<button class="btn default" type="reset"><?php echo 'Cancel';?></button>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -122,7 +136,7 @@
 					</div>
 				</div>
 			</div>
-		<?php echo form_close();?>
+		</form>
 		<!-- END FORM-->
 	</div>
 </div>	

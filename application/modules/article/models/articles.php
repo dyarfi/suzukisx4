@@ -1,10 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-// Model Class Object for News
-class News Extends MY_Model {
+// Model Class Object for Articles
+class Articles Extends MY_Model {
     
 	// Table name for this model
-	public $table = 'news';
+	public $table = 'articles';
 	
 	public function __construct(){
 		// Call the Model constructor
@@ -29,7 +29,8 @@ class News Extends MY_Model {
 				. '`name` VARCHAR(255) NULL, '
 				. '`subject` VARCHAR(255) NULL, '
 				. '`synopsis` TEXT NULL, '
-				. '`text` TEXT NULL, '
+				. '`text` TEXT NULL, '				
+                . '`media` VARCHAR(255) NULL , '	 
                 . '`url` VARCHAR(255) NULL , '	   
 				. '`attribute` TEXT NULL, '
 				. '`publish_date` DATE NULL, '
@@ -69,7 +70,7 @@ class News Extends MY_Model {
 		return $data;
 	}
 	
-	public function getNews($id = null){
+	public function getArticles($id = null){
 		if(!empty($id)){
 			$data = array();
 			$options = array('id' => $id);
@@ -83,7 +84,7 @@ class News Extends MY_Model {
 		}
 	}	
 	
-	public function getNewsByName($name = null){
+	public function getArticlesByName($name = null){
 		if(!empty($name)){
 			$data = array();
 			$options = array('name' => $name,'status'=>'publish');
@@ -97,9 +98,9 @@ class News Extends MY_Model {
 		}
 	}	
 	
-	public function getAllNews($admin=null){
+	public function getAllArticles($admin=null){
 		$data = array();
-		$this->db->order_by('added');
+		$this->db->order_by('added','DESC');
 		$Q = $this->db->get($this->table);
 			if ($Q->num_rows() > 0){
 				//foreach ($Q->result_object() as $row){
@@ -111,7 +112,7 @@ class News Extends MY_Model {
 		return $data;
 	}	
 
-    public function getNewsByUrl($url = null){
+    public function getArticlesByUrl($url = null){
 		if(!empty($url)){
 			$data = array();
 			$options = array('url' => $url,'status'=>'publish');
@@ -125,7 +126,7 @@ class News Extends MY_Model {
 		}
 	}
 	
-	public function setNews($object=null){
+	public function setArticles($object=null){
 		
 		// Set Page data
 		$data = array(			
@@ -158,7 +159,7 @@ class News Extends MY_Model {
 	}	
 	
 	// Delete page
-	public function deleteNews($id) {
+	public function deleteArticles($id) {
 		
 		// Check page id
 		$this->db->where('id', $id);

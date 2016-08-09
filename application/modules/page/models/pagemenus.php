@@ -26,7 +26,7 @@ class PageMenus Extends MY_Model {
                 $sql	= 'CREATE TABLE IF NOT EXISTS `'.$this->table.'` ('
 				. '`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY , '
 				. '`parent_id` INT(11) UNSIGNED NULL , '
-				. '`name` VARCHAR(128) NULL , '
+				. '`subject` VARCHAR(128) NULL , '
 				. '`title` VARCHAR(255) NULL , '
 				. '`synopsis` TEXT NULL, '
 				. '`description` TEXT NULL , '
@@ -42,7 +42,7 @@ class PageMenus Extends MY_Model {
 				. '`status` ENUM( \'publish\', \'unpublish\', \'deleted\' ) NULL DEFAULT \'publish\', '
 				. '`added` INT(0) NULL , '
 				. '`modified` INT(0) NULL , '
-				. 'INDEX (`parent_id`, `name`, `sub_level`, `order`, `status`) '
+				. 'INDEX (`parent_id`, `subject`, `sub_level`, `order`, `status`) '
 				. ') ENGINE=MYISAM DEFAULT CHARSET=utf8;';
 
 		$this->db->query($sql);
@@ -86,6 +86,20 @@ class PageMenus Extends MY_Model {
 			$data = array();
 			$options = array('title' => $menu,'status' => 'publish');
 			$Q = $this->db->get_where('page_menus',$options,1);
+			if ($Q->num_rows() > 0){
+				foreach ($Q->result_object() as $row)
+				$data = $row;
+			}
+			$Q->free_result();
+			return $data;
+		}
+	}
+
+	public function getMenuByUrl($url = null){
+		if(!empty($url)){
+			$data = array();
+			$options = array('url' => $url,'status'=>'publish');
+			$Q = $this->db->get_where($this->table,$options,1);
 			if ($Q->num_rows() > 0){
 				foreach ($Q->result_object() as $row)
 				$data = $row;

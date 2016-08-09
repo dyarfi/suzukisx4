@@ -69,7 +69,9 @@ $route[$admin.'/page/(:any)']		= 'page/$1';
 $route[$admin.'/pagemenu/(:any)']	= 'page/pagemenu/$1';
 $route[$admin.'/page_gallery/(:any)']  = 'page/page_gallery/$1';
 
-$route[$admin.'/news/(:any)']		   = 'news/$1';
+$route[$admin.'/article/(:any)']	 = 'article/$1';
+$route[$admin.'/article_gallery/(:any)']  = 'article/article_gallery/$1';
+
 //$route[$admin.'/qrcodescanner/(:any)']	= 'qrcode/qrcodescanner/$1';
 
 $route[$admin.'/questionnaire/(:any)']		= 'questionnaire/$1';
@@ -107,10 +109,16 @@ $route[$admin.'/participant_answer/(:any)']		= 'participant/participant_answer/$
 | MODULE ADMIN PANEL ROUTING - [END]
 | ------------------------------------------------------------------------- 
 */
-$route['page/toc']				 = 'page/detail/toc';
-$route['page/privacy']			 = 'page/detail/privacy';
+$route['page/terms-and-conditions'] = 'site_page/detail/terms-and-conditions';
+$route['page/privacy']		   		= 'site_page/detail/privacy';
 
-$route['default_controller'] = 'home';
+$route['articles']				= 'site_article';
+$route['read/article/(:any)']	= 'site_article/detail/$1';
+
+$route['quiz']					= 'site_quiz';
+
+
+$route['default_controller'] 	 = 'home';
 //$route['example'] 		 = 'example/request_dropbox';
 //$route['(:any)']			 = 'home/menu/$1';
 //$route['(:any)/page/(:any)'] = 'home/page/$1/$2';

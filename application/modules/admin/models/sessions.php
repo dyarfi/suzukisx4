@@ -28,7 +28,7 @@ class Sessions Extends MY_Model {
 					. '`ip_address` INT(11) NOT NULL DEFAULT 0, '
 					. '`user_agent` VARCHAR(255) NULL, '
 					. '`last_activity` INT(11) UNSIGNED NOT NULL,'
-					. '`user_data` TEXT NULL, '
+					. '`user_data` BLOB NULL, '
 					. 'INDEX (`session_id`, `ip_address`) '
 					. ') ENGINE=MYISAM DEFAULT CHARSET=utf8;';
 

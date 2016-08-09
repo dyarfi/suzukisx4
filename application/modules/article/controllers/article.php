@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class New extends Admin_Controller {
+class Article extends Admin_Controller {
 
     /**
      * Index New for this controller.
@@ -21,8 +21,8 @@ class New extends Admin_Controller {
     public function __construct() {
             parent::__construct();
 			
-            // Load News model
-            $this->load->model('News');
+            // Load Articles model
+            $this->load->model('Articles');
 
             // Load Grocery CRUD
             $this->load->library('grocery_CRUD');
@@ -33,21 +33,20 @@ class New extends Admin_Controller {
         try {
 	    // Set our Grocery CRUD
             $crud = new grocery_CRUD();
-            // Unset all the "back to list" buttons and messages.
-            $crud->unset_back_to_list();            
             // Set tables
-            $crud->set_table($this->News->table);
+            $crud->set_table($this->Articles->table);
             // Set CRUD subject
-            $crud->set_subject('New');                            
+            $crud->set_subject('Articles');                            
             // Set column
-            $crud->columns('subject','name','synopsis','text','gallery','status','added','modified');			
+            $crud->columns('subject','synopsis','media','text','gallery','status','added','modified');			
 			// The fields that user will see on add and edit form
-			$crud->fields('subject','name','synopsis','text','publish_date','unpublish_date','status','added','modified');
+			$crud->fields('subject','url','synopsis','text','media','publish_date','unpublish_date','status','added','modified');
+            
             // Changes the default field type
-			$crud->field_type('name', 'hidden');
+			$crud->field_type('url', 'hidden');
 			$crud->field_type('added', 'hidden');
 			$crud->field_type('modified', 'hidden');
-			
+
 			// This callback escapes the default auto field output of the field name at the add form
 			$crud->callback_add_field('added',array($this,'_callback_time_added'));
 			// This callback escapes the default auto field output of the field name at the edit form
@@ -59,17 +58,17 @@ class New extends Admin_Controller {
 			$crud->callback_column('modified',array($this,'_callback_time'));  
 			
 			// Set callback before database set
-            $crud->callback_before_insert(array($this,'_callback_url'));
-            $crud->callback_before_update(array($this,'_callback_url'));
+            $crud->callback_before_insert(array($this,'_callback_url_insert'));
+            $crud->callback_before_update(array($this,'_callback_url_update'));
 			
             // Callback Column 
             $crud->callback_column('gallery',array($this,'_callback_gallery'));
 
 			// Sets the required fields of add and edit fields
-			$crud->required_fields('subject',/*'name',*/'text','status'); 
+			$crud->required_fields('subject','media','text','status'); 
             
 			// Set upload field
-            // $crud->set_field_upload('file_name','uploads/news');
+            $crud->set_field_upload('media','uploads/articles');
 			 
 			$state = $crud->getState();
 			$state_info = $crud->getStateInfo();
@@ -82,18 +81,48 @@ class New extends Admin_Controller {
 				// GC List Method
 			}			
 
-            $this->load($crud, 'news');
+            $this->load($crud, 'Articles');
         } catch (Exception $e) {
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
         }
     }
 	
-	public function _callback_url($value, $primary_key) {
-        // Set url_title() function to set readable text
-        $value['name'] = url_title($value['name'],'-',true);
+	public function _callback_url_insert($value, $primary_key) {
+        
+        // Set url subject
+        $url    = url_title($value['subject'],'-',true);
+        $existed_db = $this->Articles->getArticlesByUrl($url);
+        
+        // Checking the id and url
+        if ($existed_db->id != $primary_key) {
+            $url = $url.time();         
+        }
+
+        // Set default post
+        $value['url'] = $url;      
+
         // Return update database
 		return $value; 
     }
+
+    public function _callback_url_update($value, $primary_key) {
+
+        // Set url subject
+        $url    = url_title($value['subject'],'-',true);
+        $existed_db = $this->Articles->getArticlesByUrl($url);
+        
+        // Checking the id and url
+        if ($existed_db->id != $primary_key && $existed_db->url == $url) {
+            $url = $url.time();     
+        } else {
+            $url = $value['url'];
+        }   
+        
+        // Set default post
+        $value['url'] = $url;
+
+        return $value;
+    }   
 	
     public function _callback_time ($value, $row) {
 		return empty($value) ? '-' : date('D, d-M-Y',$value);
@@ -116,7 +145,7 @@ class New extends Admin_Controller {
     
     public function _callback_gallery ($value,$row) {
         if ($row->id) { 
-            return '<a href="'.base_url(ADMIN).'/news_gallery/index/'.$row->id.'" class="fancyframe iframe"><span class="btn btn-default btn-mini glyphicon glyphicon-camera"></span></a>'; 
+            return '<a href="'.base_url(ADMIN).'/Articles_gallery/index/'.$row->id.'" class="fancyframe iframe"><span class="btn btn-default btn-mini glyphicon glyphicon-camera"></span></a>'; 
         } else { 
             return '-';
         }
@@ -127,7 +156,7 @@ class New extends Admin_Controller {
         $output->nav = $nav;
         if ($crud->getState() == 'list') {
             // Set New Title 
-            $output->news_title = 'News Listings';
+            $output->Articles_title = 'Articles Listings';
             // Set Main Template
             $output->main       = 'template/admin/metronix';
             // Set Primary Template
@@ -138,5 +167,5 @@ class New extends Admin_Controller {
     }
 }
 
-/* End of file news.php */
-/* Location: ./application/module/news/controllers/news.php */
+/* End of file Articles.php */
+/* Location: ./application/module/Articles/controllers/Articles.php */

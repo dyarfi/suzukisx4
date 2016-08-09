@@ -16,7 +16,7 @@ class Setting extends Admin_Controller {
 		
 		// Load Configuration model
 		$this->load->model('Configurations');
-		
+			
 	}
 	
 	public function index() {
@@ -84,6 +84,7 @@ class Setting extends Admin_Controller {
 				'parameter'	=> '',
 				'alias'		=> '',
 				'value'		=> '',
+				'input_type' => '',				
 				'help_text' => '',
 				'status'	=> '');
 		
@@ -93,33 +94,90 @@ class Setting extends Admin_Controller {
 		$this->form_validation->set_rules('alias', 'Alias','trim|required|xss_clean');
 		$this->form_validation->set_rules('value', 'Value','trim|required');				
 		$this->form_validation->set_rules('status', 'Status','required');
-                
+        
 		// Check if post is requested		
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
+			$status = '';
+			$value 	= $this->input->post('value');
+			
+			if($_FILES['value']['size'] > 0) {
+				//$file_hash	= md5(time() + rand(100, 999));
+				//$file_data	= pathinfo($_FILES['value']['name']);
+				//$file_rename	= $file_hash.'.'.$file_data['extension'];
+				$file_rename = $_FILES['value']['name'];
+									
+				$file_element_name = 'value';
+				
+				$config['upload_path'] = './assets/static/img/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size'] = 1024 * 8;
+				$config['encrypt_name'] = FALSE;
+				$config['overwrite'] = TRUE;
+				$config['file_name'] = $file_rename;
+
+				$this->load->library('upload', $config);
+				
+				if (!$this->upload->do_upload($file_element_name))
+				{
+					// Set status message
+				  	$status = 'blank';
+				  	$msg = $this->upload->display_errors('','');
+				  	// Set value error
+				 	$errors['value'] = $msg;
+				}
+				else
+				{
+					
+					$data = $this->upload->data();
+					$image_path = $data['full_path'];
+					$value = $file_rename;
+					
+					if(file_exists($image_path))
+					{
+						// Set status message
+						$status = "success";
+						$msg = "File successfully uploaded";
+					}
+					else
+					{
+						// Set status message
+					 	$status = "error";
+					 	$msg = "Something went wrong when saving the file, please try again.";
+					 	// Set value error
+					 	$errors['value'] = $msg;
+					}
+				}				
+			}
+
+			//print_r($status);
+			//exit;
+
 			// Validation form checks
-			if ($this->form_validation->run() == FALSE) {
+			if ($this->form_validation->run() == FALSE || $status == 'blank') {
 
 				// Set error fields
-				$error = array();
-				foreach(array_keys($fields) as $error) {
-					$errors[$error] = form_error($error);
-				}
-
+				//$error = array();
+				$errors = array_merge($errors, $errors);
+				//print_r($errors);
+				//exit;
+				//foreach(array_keys($fields) as $error) {
+					//$errors[$error] = form_error($error);
+				//}
 				// Set previous post merge to default
 				$fields = array_merge($fields, $this->input->post());						
 
 			} else {
 
 				$posts = array(
-								'id'        => $id,
-								'parameter'	=> $this->input->post('parameter'),
-								'alias'     => $this->input->post('alias'),
-								'value'		=> $this->input->post('value'),
-								'help_text' => $this->input->post('help_text'),
-								'status'	=> $this->input->post('status')
-				);
-				
+							'id'        => $id,
+							'parameter'	=> $this->input->post('parameter'),
+							'alias'     => $this->input->post('alias'),
+							'value'		=> $value,
+							'help_text' => $this->input->post('help_text'),
+							'status'	=> $this->input->post('status')
+						);
+					
 				// Set data to add to database
 				$this->Settings->updateSetting($posts);
 
@@ -137,7 +195,7 @@ class Setting extends Admin_Controller {
 			$fields         = $this->Settings->getSetting($id);
 			
 		}
-		
+
 		// Load WYSIHTML JS and other JS
 		$data['js_files'] = array(
 			base_url('assets/admin/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js'),

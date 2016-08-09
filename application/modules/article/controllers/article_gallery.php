@@ -1,13 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class News_Gallery extends Admin_Controller {
+class Articles_Gallery extends Admin_Controller {
 
     public function __construct() {
 
             parent::__construct();
 
             // Load Conferences model
-            $this->load->model('news/News');
+            $this->load->model('article/Articles');
 
             // Load Image CRUD
             $this->load->library('image_CRUD');
@@ -22,10 +22,10 @@ class News_Gallery extends Admin_Controller {
 		
             $image_crud->set_primary_key_field('id');
             $image_crud->set_url_field('file_name');
-            $image_crud->set_table('tbl_news_images');
+            $image_crud->set_table('tbl_article_images');
             $image_crud->set_relation_field('field_id')
             ->set_ordering_field('priority')
-            ->set_image_path('uploads/news');
+            ->set_image_path('uploads/articles');
             
             $this->load($image_crud);
         
@@ -40,7 +40,7 @@ class News_Gallery extends Admin_Controller {
         $output = $crud->render();
 
         // Set Title 
-        $output->page_title = 'News Gallery Listings';
+        $output->page_title = 'Articles Gallery Listings';
 
         // Set Main Template
         $output->main       = 'upload_index';

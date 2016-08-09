@@ -232,7 +232,34 @@ $config['modulelist'] = array(
                     'participant_answer/index/export'  => 'Export Participant Answer',
                     'participant_answer/index/print'   => 'Print Participant Answer'
         ) 
-	),	
+	),
+    // Article module
+	'Article' => array (
+		// Article Models list
+		'models'		=> array('article/Articles'),
+		// Article module menus
+		'module_menu'	=> array(
+                'article/index'		=> 'Articles'),
+		// Article module functions
+		'module_function'	=> array(
+                // Article functions
+                'article/index/add'	=> 'Add Article',							
+                'article/index/read'	=> 'Read Article',
+                'article/index/edit'	=> 'Edit Article',
+                'article/index/delete'	=> 'Delete Article',
+
+                // Article Gallery functions
+                'article_gallery/index'	=> 'Article Gallery',
+                'article_gallery/index/add'	=> 'Add Article Gallery',
+                'article_gallery/index/view'	=> 'View Article Gallery',			
+                'article_gallery/index/edit'	=> 'Edit Article Gallery',			
+                'article_gallery/index/delete' => 'Delete Article Gallery',
+                'article_gallery/index/change' => 'Change Article Gallery',
+                'article_gallery/index/export' => 'Export Article Gallery',
+                'article_gallery/index/print'	=> 'Print Article Gallery',
+                ),
+
+	)
 	/*
 	// Conference module
 	'Conference' => array (

@@ -36,23 +36,21 @@ class Page extends Admin_Controller {
         try {
 	       // Set our Grocery CRUD
             $crud = new grocery_CRUD();
-            // Unset all the "back to list" buttons and messages.
-            $crud->unset_back_to_list();            
             // Set tables
             $crud->set_table($this->Pages->table);
             // Set CRUD subject
             $crud->set_subject('Page');                            
             // Set table relation
-            $crud->set_relation('menu_id',$this->PageMenus->table,'name');
+            $crud->set_relation('menu_id',$this->PageMenus->table,'subject',array('status' => 'publish'),'id ASC');
 			// Add custom column
             // Set column
-            $crud->columns('subject','name','menu_id','synopsis','text','gallery','status','added','modified');			
+            $crud->columns('subject','menu_id','synopsis','text','status','added','modified');			
 			// The fields that user will see on add and edit form
-			$crud->fields('subject','name','menu_id','synopsis','text','publish_date','unpublish_date','status','added','modified');
+			$crud->fields('subject','menu_id','url','synopsis','text','status','added','modified');
             // Set column display 
             $crud->display_as('menu_id','Menu');
 			// Changes the default field type
-			$crud->field_type('name', 'hidden');
+			$crud->field_type('url', 'hidden');
 			$crud->field_type('added', 'hidden');
 			$crud->field_type('modified', 'hidden');
 			

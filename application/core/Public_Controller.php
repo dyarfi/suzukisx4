@@ -25,6 +25,7 @@ class Public_Controller extends MY_Controller {
 		$this->load->model('admin/Configurations');
 		//$this->load->model('admin/ServerLogs');
 		$this->load->model('admin/Settings');
+		$this->load->model('page/PageMenus');        
         $this->load->model('participant/Participants');        
         $this->load->model('participant/Attachments');
 		
@@ -32,6 +33,30 @@ class Public_Controller extends MY_Controller {
 		$this->config->set_item('title_name', $this->Settings->getByParameter('title_name')->value);
 		$this->config->set_item('site_title', $this->Settings->getByParameter('title_default')->value);
 		$this->config->set_item('copyright', $this->Settings->getByParameter('copyright')->value);
+		
+		// Set site logo
+        $this->logo     		= $this->Settings->getByParameter('site_logo');
+        
+        // Set small site logo
+        $this->small_logo		= $this->Settings->getByParameter('site_logo_admin');
+        
+        // Set menus
+		$this->menus       		= $this->PageMenus->getAllPageMenu();
+      
+        // Set social media links
+        $this->twitter     = $this->Settings->getByParameter('socmed_twitter');        
+        $this->facebook    = $this->Settings->getByParameter('socmed_facebook');
+        $this->pinterest   = $this->Settings->getByParameter('socmed_pinterest');        
+        $this->linkedin    = $this->Settings->getByParameter('socmed_linkedin');
+        $this->youtube     = $this->Settings->getByParameter('socmed_youtube');
+        // Contact information
+        $this->email_info  = $this->Settings->getByParameter('email_info');
+        $this->ext_link	   = $this->Settings->getByParameter('ext_link');
+        $this->no_phone	   = $this->Settings->getByParameter('no_phone');
+        $this->title_name  = $this->Settings->getByParameter('title_name');
+        $this->gmap  	   = $this->Settings->getByParameter('contactus_gmap');        
+        $this->copyright    = $this->Settings->getByParameter('copyright');
+        $this->ga_analytics = $this->Settings->getByParameter('google_analytics');
 
 		// Set site status default
 		self::getSiteStatus();
