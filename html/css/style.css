@@ -46,7 +46,8 @@ body {
 }
 .bg-article-page{background: transparent url('../img/bg-article-page.jpg') center center no-repeat;background-size: 100% 100%;}
 .bg-terms-page{background: transparent url('../img/bg-terms-page.jpg') center center no-repeat;background-size: 100% 100%;}
-.bg-quiz-page{background: transparent url('../img/bg-quiz-page.jpg') bottom center no-repeat;}
+.bg-quiz-page{background: #000018 url('../img/bg-quiz-page.jpg') bottom center no-repeat;}
+.bg-form-page{background: #000018;}
 .main-page {
   /*padding: 40px 15px;*/
   height: 100%;
@@ -463,4 +464,12 @@ footer a{
 .submit-quiz, .video{text-align: center;}
 .submit-quiz{
 	margin: 50px auto 180px;
+}
+.indentity-form h2, .indentity-form p{text-align: center;}
+.indentity-form .form-control {
+    color: #555;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px #fff;
+    border-radius: 0;
 }
