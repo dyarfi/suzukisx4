@@ -80,7 +80,7 @@ body {
               transform: translate3d(-50%,-50%,0);
 }
 .hero h1 {
-    font-size: 6em;    
+    font-size: 4em;    
     font-weight: bold;
     margin: 0;
     padding: 0;
@@ -259,8 +259,8 @@ body {
 	font-style: italic;
 }
 .hero h4{
-    margin-top: 0;
-    margin-bottom: 30px;
+    margin-top: 10PX;
+    margin-bottom: 10px;
 }
 .submit-quiz a .btn, .hero a .btn {
 	color: #000;

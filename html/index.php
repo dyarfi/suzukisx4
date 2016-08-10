@@ -8,8 +8,9 @@
         <img class="img-responsive" src="img/slider-01.jpg">
         <div class="hero">
           <hgroup>
-              <h1><span>Test your</span> s-cross <span>knowledge</span></h1>        
-              <h4>and get lucky with exciting prizes!</h4>
+              <h1>EXPLORE THE QUIZ, GET THE GIFTS!</h1>        
+              <h4>MENANGKAN PAKET WISATA KELUARGA SENILAI 50 JUTA RUPIAH DAN PULUHAN HADIAH</h4>
+              <h4>MENARIK LAINNYA HANYA DENGAN MENJAWAB PERTANYAAN BERIKUT.</h4>
           </hgroup>
           <a class="btn btn-hero btn-sm" href="quiz.php">ENTER QUIZ</a>
           <div class="tnc"><a href="terms.php">Terms &amp; Conditions</a></div>
