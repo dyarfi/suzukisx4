@@ -319,6 +319,17 @@ class Participants Extends MY_Model {
 		return $insert_id;
 
     }	
+	
+	public function updateParticipant($object=null){
+	    
+	    // Update User data             
+	    $this->db->where('id', $object['id']);      
+
+	    // Return last insert id primary
+	    $update = $this->db->update($this->table, $object);	
+
+	    return $update;
+	}
 
     // Delete page
     public function deleteParticipant($id) {

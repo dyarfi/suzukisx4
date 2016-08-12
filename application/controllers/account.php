@@ -5,6 +5,10 @@ class Account extends Public_Controller {
 	public function __construct() {
 		parent::__construct();
 		
+
+        // Set language
+        $this->config->set_item('language','indonesia');
+
         // Load config for controller
         $this->load->config('admin/admin');
         
@@ -19,9 +23,10 @@ class Account extends Public_Controller {
 		//$this->load->model('conference/Conferences');
         
         // Load email library
-        $this->load->library('email');
+        //$this->load->library('email');
 
         //print_r($this->participant);
+        //exit;
         //print_r($this->session->userdata);
         
 	}
@@ -43,7 +48,8 @@ class Account extends Public_Controller {
         if ($this->participant) {
             
             // Redirect to account
-            redirect(base_url('account/dashboard'));
+            //redirect(base_url('account/dashboard'));
+            redirect(base_url('quiz'));
             
         }
         
@@ -349,21 +355,23 @@ class Account extends Public_Controller {
         $fields	= array(
                         'name'  => '',
                         'email' => '',
-                        'password' => '',
-                        'confirm_password' => '',
-						//'gender'         => '',
-                        //'phone_number'   => '',
-                        'captcha'        => '');
+                        'address' => '',
+                        'phone_number' => '',
+                        'phone_home'   => '',                        
+                        'id_number'   => '');
 
         $errors	= $fields;
         
-        $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[5]|max_length[32]|xss_clean');
-		$this->form_validation->set_rules('email', 'Email','trim|valid_email|required|max_length[55]|callback_match_email|xss_clean');
-        //$this->form_validation->set_rules('gender', 'Gender','trim|required');		
+        $this->form_validation->set_rules('name', 'Name Lengkap', 'trim|required|min_length[5]|max_length[32]|xss_clean');
+		$this->form_validation->set_rules('email', 'Email','trim|required|max_length[55]|xss_clean');
+        $this->form_validation->set_rules('address', 'Alamat','trim|required');		
+        $this->form_validation->set_rules('phone_number', 'No. Hp','trim|required');          
+        $this->form_validation->set_rules('phone_home', 'No. Telp','trim|required');                
+        $this->form_validation->set_rules('id_number', 'No. ID','trim|required');                
         //$this->form_validation->set_rules('phone_number', 'Phone Number','trim|is_numeric|xss_clean|max_length[25]');
-        $this->form_validation->set_rules('password', 'Password','trim|required');
-	    $this->form_validation->set_rules('confirm_password', 'Confirm Password','trim|required|matches[password]');
-	    $this->form_validation->set_rules('captcha', 'Captcha Code','trim|required|xss_clean|callback_match_captcha');
+        //$this->form_validation->set_rules('password', 'Password','trim|required');
+	    //$this->form_validation->set_rules('confirm_password', 'Confirm Password','trim|required|matches[password]');
+	    //$this->form_validation->set_rules('captcha', 'Captcha Code','trim|required|xss_clean|callback_match_captcha');
 		
         // Check if post is requested
         if ($this->input->server('REQUEST_METHOD') == 'POST') {			
@@ -389,24 +397,48 @@ class Account extends Public_Controller {
                     
                     // Send errors to JSON text
                     $result['result']['code'] = 0;
-                    $result['result']['text'] = $errors;
-                    // $result['result']['text'] = validation_errors();
+                    //$result['result']['text'] = $errors;
+                    $result['result']['message'] = validation_errors();
 				}
                                 
 		    } else {
 
                 $object = array();
 				
+                $participant_id = $this->participant->id;
+
+				$object['id']              = $participant_id;
+                $object['name']            = $this->input->get_post('name', true);                
                 $object['email']           = $this->input->get_post('email', true);
-				$object['name']            = $this->input->get_post('fullname', true);
-                //$object['gender']          = $this->input->get_post('gender', true);
-				//$object['phone_number']    = $this->input->get_post('phone_number', true);
-				$object['verify']          = $this->input->get_post('captcha', true);
-                $object['status']          = '0';
-                $object['completed']       = '0';
+                $object['address']         = $this->input->get_post('address', true);
+				$object['phone_number']    = $this->input->get_post('phone_number', true);
+                $object['phone_home']      = $this->input->get_post('phone_home', true);                     
+                $object['id_number']       = $this->input->get_post('id_number', true);                
+				//$object['verify']        = $this->input->get_post('captcha', true);
+                $object['status']          = '1';
+                $object['completed']       = '1';
 				
-                $return = $this->Participants->setParticipant($object);
-				
+                $return = $this->Participants->updateParticipant($object);
+
+                // Check if session was made 
+                if ($this->participant) {
+                
+                    // Set temporary data
+                    $this->_participant = $this->Participants->getParticipant($participant_id);
+                    
+                    // Unset data from session
+                    unset($this->participant);  
+                    
+                    // Set new data and to session
+                    $this->participant = $this->_participant;
+                    $this->session->set_userdata('participant',$this->participant);
+                    
+                }
+
+                //print_r($this->participant);
+                //exit;
+
+				/*
                 if (!empty($return)) {
 
                     // Data to send to email activation views
@@ -429,9 +461,10 @@ class Account extends Public_Controller {
         
 
                 } 
+                */
 
                 // Set message
-                $this->session->set_flashdata('message','Please check your Email : <b>'.$object['email'].'</b> for the Account Activation!');
+               // $this->session->set_flashdata('message','Please check your Email : <b>'.$object['email'].'</b> for the Account Activation!');
                     
 				if ($this->input->is_ajax_request()) {
 					// Send json message
@@ -439,7 +472,7 @@ class Account extends Public_Controller {
 					$result['label']	= base_url('upload');
 				} else {					
                     // Redirect if not ajax
-					redirect(base_url());
+					redirect(base_url('quiz'));
 				}
 		    }
 

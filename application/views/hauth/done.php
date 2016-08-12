@@ -1,14 +1,7 @@
-<?php /* var_dump($user_profile); */ ?>
-<html>
-<head>
-<title></title>
-</head>
-<!-- this javascript closes a1.html, 
-but you will be prompted to confirm the closure -->
-<script>
-opener.location.reload();
-window.close();
-</script>
-<body>
-</body>
-</html>
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<meta http-equiv="refresh" content="3;URL=<?php echo base_url('quiz?refresh=true');?>">
+<div class="container" style="margin:160px auto;">
+    <div class="quiz-page">   	
+		<h1 class="text-danger">Will be redirected to quiz page...</h1>
+    </div>
+</div><!-- /.container -->

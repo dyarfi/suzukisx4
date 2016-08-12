@@ -3,16 +3,14 @@
 class Public_Controller extends MY_Controller {
     
     // Set public controller variable
-	var $session_id = '';
+	public $session_id = '';
 
 	// Set empty participant data
-	var $participant = '';
+	public $participant = '';
 
 	// Set public logged in
-	var $logged_in = true;
+	public $logged_in = true;
 
-
-    
     public function __construct() {
 		
         parent::__construct();
@@ -81,37 +79,30 @@ class Public_Controller extends MY_Controller {
 		}
 
 		// Set participant session objects
-		//$this->participant = $this->session->userdata('participant');
-		//print_r(rand(1,300));
-		//exit;
+		$this->participant = $this->session->userdata('participant');
 		
 		//$user->id 			= 1;
 		//$user->status 		= 0;
 		//$this->participant  	= $user;
 
-		if (! $this->session->userdata('participant')) {
+		// if (! $this->session->userdata('participant')) {
 
 			// Set public to logged in
-			$this->logged_in = false;
+			// $this->logged_in = false;
 
-		} else {
+		//} else {
 			
 			// Set temporary participant data
-			$this->participant = $this->session->userdata ('participant');
+			//$this->participant = $this->session->userdata ('participant');
 
-		}
+		//}
 
-		//print_r($this->session->unset_userdata('participant'));
-
-		//print_r($this->participant);
-
-		//$this->session->set_userdata('participant',$this->participant);
-
-		//$this->template->theme  	= 'default';
-		//$this->template->title  	= 'Page Title';
-		//$this->template->meta_data  = array();
-		//$this->template->layout     = 'template/public/site_template';
-		//print_r($this->template);
+		//print_r($this->session->userdata ('participant'));
+		
+		$this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
+		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+		$this->output->set_header('Pragma: no-cache');
+		$this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 
     }
 	

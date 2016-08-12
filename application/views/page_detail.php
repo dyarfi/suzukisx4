@@ -9,6 +9,6 @@
     <div class="body-text-article terms-conditions">
 		<?php echo $page->text;?>
     </div>
-    <div>Posted : <?php echo date('Y-m-d, D',$page->added);?></div>
+    <!--div>Posted : <?php echo date('Y-m-d, D',$page->added);?></div-->
   </div>
 </div><!-- /.container -->

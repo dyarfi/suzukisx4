@@ -101,6 +101,7 @@ class Articles Extends MY_Model {
 	public function getAllArticles($admin=null){
 		$data = array();
 		$this->db->order_by('added','DESC');
+                $this->db->where('status','publish');
 		$Q = $this->db->get($this->table);
 			if ($Q->num_rows() > 0){
 				//foreach ($Q->result_object() as $row){

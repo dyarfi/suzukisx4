@@ -5,12 +5,20 @@ class HAuth extends Public_Controller {
     public function __construct () {
         parent::__construct();
         
-        
+        $this->load->library('HybridAuthLib');
     }
     
 	public function index(){ $this->load->view('hauth/home'); }
     
-    public function done(){ $this->load->view('hauth/done'); }
+    public function done(){ 
+
+    	// Set main template
+    	$data['main'] = 'hauth/done'; 
+
+		// Load site template
+		$this->load->view('template/public/template', $this->load->vars($data));	
+
+    }
 
 	public function login($provider)
 	{
@@ -18,8 +26,7 @@ class HAuth extends Public_Controller {
 
 		try
 		{
-			log_message('debug', 'controllers.HAuth.login: loading HybridAuthLib');
-			$this->load->library('HybridAuthLib');
+			log_message('debug', 'controllers.HAuth.login: loading HybridAuthLib');			
 
 			if ($this->hybridauthlib->providerEnabled($provider))
 			{
@@ -39,7 +46,9 @@ class HAuth extends Public_Controller {
                     if ($user_profile) {
                             
                             $participant = $this->Participants->getParticipantByIdentity($user_profile->identifier,$provider);
-                            
+                            // print_r($participant);
+                            // print_r($user_profile);                            
+                            // exit;
                             if (!$participant) {
                                 
                                 $object['identifier_id'] = $user_profile->identifier;
@@ -58,126 +67,32 @@ class HAuth extends Public_Controller {
                                 $object['status'] = 0;                                
                                 
                                 $participant_id = $this->Participants->setParticipant($object);
-                                
-                                echo $participant_id; 
-                                
-                            } else {
-                                
-                                $this->session->set_userdata('participant',$participant);
-                                
-                                //redirect(base_url('account'));
-                                
-                            }
-                            
-                            /****
-                             * FACEBOOK
-                             */
-                            /*
-                            object(Hybrid_User_Profile)#29 (22) {
-                            ["identifier"]=>
-                            string(16) "1588544004757909"
-                            ["webSiteURL"]=>
-                            string(0) ""
-                            ["profileURL"]=>
-                            string(61) "https://www.facebook.com/app_scoped_user_id/1588544004757909/"
-                            ["photoURL"]=>
-                            string(72) "https://graph.facebook.com/1588544004757909/picture?width=150&height=150"
-                            ["displayName"]=>
-                            string(13) "Nairfed Ifray"
-                            ["description"]=>
-                            string(0) ""
-                            ["firstName"]=>
-                            string(7) "Nairfed"
-                            ["lastName"]=>
-                            string(5) "Ifray"
-                            ["gender"]=>
-                            string(4) "male"
-                            ["language"]=>
-                            NULL
-                            ["age"]=>
-                            NULL
-                            ["birthDay"]=>
-                            NULL
-                            ["birthMonth"]=>
-                            NULL
-                            ["birthYear"]=>
-                            NULL
-                            ["email"]=>
-                            string(18) "dyarfi20@gmail.com"
-                            ["emailVerified"]=>
-                            string(18) "dyarfi20@gmail.com"
-                            ["phone"]=>
-                            NULL
-                            ["address"]=>
-                            NULL
-                            ["country"]=>
-                            NULL
-                            ["region"]=>
-                            string(0) ""
-                            ["city"]=>
-                            NULL
-                            ["zip"]=>
-                            NULL
-                          }
 
-                             * 
-                             */
-                            
-                            /**
-                             * TWITTER
-                             */
-                            /*
-                             object(Hybrid_User_Profile)#29 (22) {
-                            ["identifier"]=>
-                            int(300187659)
-                            ["webSiteURL"]=>
-                            NULL
-                            ["profileURL"]=>
-                            string(25) "http://twitter.com/dyarfi"
-                            ["photoURL"]=>
-                            string(75) "http://pbs.twimg.com/profile_images/417721509696634880/tKSK06gY_normal.jpeg"
-                            ["displayName"]=>
-                            string(6) "dyarfi"
-                            ["description"]=>
-                            string(0) ""
-                            ["firstName"]=>
-                            string(13) "Defrian Yarfi"
-                            ["lastName"]=>
-                            NULL
-                            ["gender"]=>
-                            NULL
-                            ["language"]=>
-                            NULL
-                            ["age"]=>
-                            NULL
-                            ["birthDay"]=>
-                            NULL
-                            ["birthMonth"]=>
-                            NULL
-                            ["birthYear"]=>
-                            NULL
-                            ["email"]=>
-                            NULL
-                            ["emailVerified"]=>
-                            NULL
-                            ["phone"]=>
-                            NULL
-                            ["address"]=>
-                            NULL
-                            ["country"]=>
-                            NULL
-                            ["region"]=>
-                            string(17) "Bekasi, Indonesia"
-                            ["city"]=>
-                            NULL
-                            ["zip"]=>
-                            NULL
-                          
-                             */
-                        
+                                $participant = $this->Participants->getParticipantByIdentity($user_profile->identifier,$provider);
+
+                            } // else {
+								
+								// Unset data from session
+							    // $this->participant = $participant;
+                                // $this->session->unset_userdata('participant');
+                                //$this->session->set_userdata('participant', $participant);                             
+                        		
+                            //}
+
+                            $this->session->set_userdata('participant', $participant);
+							redirect('quiz','refresh');
+                        // usleep(50000);
+                		// redirect('hauth/done');
+                        //if ($this->session->userdata('participant')) { 
+
+                        	//redirect('hauth/login/'.$provider);
+
+                    	//}
     
                     }
                     
+                    //print($participant);
+                    //exit;	
 					$this->load->view('hauth/done',$data);
 				}
 				else // Cannot authenticate user

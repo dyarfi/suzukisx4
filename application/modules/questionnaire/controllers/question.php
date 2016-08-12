@@ -117,7 +117,7 @@ class Question extends Admin_Controller {
 
     public function _callback_questionnaires($value, $row) {
         $questionnaire = $this->Questionnaires->get_questionnaires($row->questionnaire_id);
-        return $questionnaire->questionnaire_text;
+        return $questionnaire->name;
     }
 
     public function _callback_total_vote($value, $row) {

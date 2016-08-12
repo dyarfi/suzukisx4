@@ -32,7 +32,7 @@ class Questionnaire extends Admin_Controller {
     public function index() {
         try {
             $crud = new grocery_CRUD();
-            $crud->set_table($this->Questionnaires->table);
+            $crud->set_table($this->Questionnaires->table)->order_by('id','ASC');
             $crud->set_subject('List Questionnaire');
             $crud->display_as('user_id', 'User');
             $crud->columns('questionnaire_text','quest_per_column','user_id','status');                      
@@ -49,7 +49,8 @@ class Questionnaire extends Admin_Controller {
 
             // Set upload field
             $crud->set_field_upload('file_name','uploads/questionnaire');
-            
+            // Sets the required fields of add and edit fields
+            $crud->required_fields('questionnaire_text','status'); 
             // Set user that who is in charge for this questionnaire 
             //$crud->callback_column('user_id', array($this, '_callback_admin'));
                 

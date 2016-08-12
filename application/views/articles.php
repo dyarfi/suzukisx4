@@ -4,6 +4,7 @@
         <h2>ARTICLES</h2>
       </div>
       <div class="article-item">
+        <?php if ($articles) { ?>
       	<?php foreach ($articles as $article) { ?>
 	      	<div class="col-xs-12 col-sm-4 col-md-4">            
 	          <div class="thumbnail">
@@ -20,5 +21,10 @@
 	          </div>
 	        </div>
       	<?php } ?>
+      <?php } else { ?>
+      <br/><br/>
+      <h2>Belum ada Artikel</h2>
+      <br/><br/><br/><br/><br/><br/><br/>
+      <?php } ?>
       </div>
     </div><!-- /.container -->

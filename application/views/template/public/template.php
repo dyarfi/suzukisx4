@@ -8,7 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="favicon.ico">
 
     <title><?php echo $page_title .' | ' . config_item('title_name') .' - ' . config_item('site_title'); ?></title>  
     <script type="text/javascript">var base_URL = '<?php echo base_url();?>';</script>
@@ -24,7 +24,7 @@
     $this->minify->css([
       "public/css/bootstrap.min.css",
       "public/css/fancybox/jquery.fancybox.css",
-      //"public/font-awesome/css/font-awesome.min.css",
+      "public/font-awesome/css/font-awesome.css",
       //"public/css/animate.css",
       "public/css/style.css",
       "public/css/media-queries.css"
@@ -47,14 +47,14 @@
    ?>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo base_url('assets/public/css/bootstrap.min.css');?>" rel="stylesheet">
+    <!--link href="<?php echo base_url('assets/public/css/bootstrap.min.css');?>" rel="stylesheet"-->
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
-    <link href="<?php echo base_url('assets/public/css/style.css')?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/public/css/media-queries.css');?>" rel="stylesheet">
+    <!--link href="<?php echo base_url('assets/public/css/style.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/public/css/media-queries.css');?>" rel="stylesheet"-->
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -125,11 +125,65 @@
   <!-- Custom Theme JavaScript -->
   <script type="text/javascript">
   $(document).ready(function() {     
+    
+    $('.popup_account').click(function() {
+        $.fancybox.open({
+             autoSize : false,
+             width : "50%",
+             height : "auto",
+             content : $( "#result" ).load( base_URL + "account .boxed-grey" )
+        });
+        //$( "#result" ).load( base_URL + "account #account" );
+        return false;
+    });
+
+    $('.popup_account').attr({'style':'text-shadow:1px 1px 0 rgba(255,255,255,0.75);color:#233247'});
+
   <?php 
     // Write the javascript inline in the controller
     echo ($js_inline) ? "\t".$js_inline."\n" : "";
   ?>
+
+    
+    $('#form_account').submit(function(){
+        //alert($(this).serialize());
+        var urls = $(this).attr('action');
+        $.ajax({
+            method: "POST",
+            url: urls,
+            dataType: "JSON",
+            data:$(this).serialize(),
+            success : function(ms) {
+                var msg = ms.result;
+                if (ms.result.code === 0) {             
+                    //var tmp = '';               
+                    //$.each(msg.message, function( i, m ) {    
+                        //tmp += m; 
+                    //});
+                    //jAlert(tmp,'Tolong periksa kembali');     
+                    $.fancybox.open('<div class="col-md-12">' + msg.message + '</div>');
+                    //$( "#result" ).append( msg.message );          
+                } else if(ms.result === 'OK') {
+                     $.fancybox.open('Terima kasih untuk partisipasi anda');
+                    setTimeout(function() {
+                        // Do something after 5 seconds
+                        window.location.href = base_URL + 'quiz/participated';
+                    }, 2000);
+                }       
+                //setTimeout(function() {                 
+                    //form.find('button.bt-submit').prop( "disabled", false );
+                //}, 6000);
+            }
+        })
+        return false;        
+    });
   });
+function popupCenter(url, title, w, h) {
+    //var left = (screen.width/2)-(w/2);
+    //var top = (screen.height/2)-(h/2);
+    //return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
+    window.location.href = url;
+} 
   </script>
 </body>
 </html>

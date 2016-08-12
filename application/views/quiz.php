@@ -25,14 +25,12 @@
         <div class="body-quiz">
                             
             <?php if ($questionnaires) { ?>
-            <h1>Test Your SX4 S-Cross Knowledge!</h1>
+            <?php if ($this->participant) { ?><h1>Test Your SX4 S-Cross Knowledge!</h1><?php } ?>
              <?php
                 echo (!$this->participant) ? '<div style="margin:0 0 500px 0px;"></div>' : '';
                 echo form_open(base_url('quiz'),['id'=>'form-questionnaire','enctype'=>'multipart/form-data','role'=>'form','name'=>'questionnaire','style' => (!$this->participant) ? 'display:none;' : 'display:block;']);
-                $i=1;
+                $i=1; 
                 foreach($questionnaires as $questionnaire) { ?>
-     
-
                 <div class="quiz">
                     <div class="quiz-number-box">
                       <div class="quiz-number"><h4><?php echo $i;?></h4></div>
@@ -44,6 +42,7 @@
                           <?php 
                             if ($questions) { ?>
                                 <?php 
+
                                 foreach ($questions as $question) { 
                                   if ($questionnaire->id === $question->questionnaire_id) { ?>
                                     <div class="funkyradio-primary">

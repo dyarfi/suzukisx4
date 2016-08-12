@@ -116,7 +116,7 @@ $route['articles']				= 'site_article';
 $route['read/article/(:any)']	= 'site_article/detail/$1';
 
 $route['quiz']					= 'site_quiz';
-
+$route['quiz/participated']		= 'site_quiz/participated';
 
 $route['default_controller'] 	 = 'home';
 //$route['example'] 		 = 'example/request_dropbox';

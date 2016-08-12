@@ -2,12 +2,15 @@
 
 class Site_Quiz extends Public_Controller {
 
-	var $participant = '';	
-	var $answers 	 = '';	
+	public $participant = '';	
+	public $answers 	 = '';	
 
 	public function __construct() {
 		parent::__construct();
-		
+
+		// Set language
+		$this->config->set_item('language','indonesia');
+
 		// Load User related model in admin module
 		$this->load->model('page/Pagemenus');
 		$this->load->model('page/Pages');	
@@ -17,23 +20,31 @@ class Site_Quiz extends Public_Controller {
         $this->load->model('questionnaire/Questionnaires');
         $this->load->model('questionnaire/QuestionnaireCompleted');
 		$this->load->model('questionnaire/QuestionnaireUserAnswers');
-        $this->load->model('questionnaire/QuestionRules');
+        $this->load->model('questionnaire/QuestionRules');       
 
-        // Check if session was made 
-		if ($this->participant) {
+        // $this->session->unset_userdata('participant');
+		//$this->participant = $this->session->userdata('participant');
+		//print_r($this->participant);
+		
+		// Check if session was made 
+		
+		if ($this->session->userdata('participant')) {
 		
 			// Set temporary data
-			$this->_participant = $this->Participants->getParticipant($this->participant->id);
+			$this->_participant = $this->Participants->getParticipant($this->session->userdata('participant')->id);
 			
 			// Unset data from session
-			unset($this->participant);	
+			unset($this->participant);
+			$this->session->unset_userdata('participant');
 			
 			// Set new data and to session
 			$this->participant = $this->_participant;
 			$this->session->set_userdata('participant',$this->participant);
 			
 		}
-		
+
+		// print_r($this->participant);
+
 		// Get participant attachment by type
 		$this->answer = $this->QuestionnaireCompleted->getUserQuestionnaireCompleted($this->participant->id);
 		
@@ -45,7 +56,7 @@ class Site_Quiz extends Public_Controller {
 		if ($this->answers) {
 
 			// Redirect Participant already participated
-			redirect('quiz/participated');
+			redirect('quiz?refresh=true', 'refresh');
 
 		}
 
@@ -140,11 +151,11 @@ class Site_Quiz extends Public_Controller {
 	    $fields	= array();
 	    $valids	= array();
 	    
-	    $i = 0;
+	    $i = 1;
 	    foreach ($data['questionnaires'] as $val) {
 			$fields['qrid_'.$val->id] = '';
 			$valids[$i]['field'] = 'qrid_'.$val->id;
-			$valids[$i]['label'] = 'Pertanyaan No. '.$val->id;
+			$valids[$i]['label'] = 'Pertanyaan No. '.$i;
 			$valids[$i]['rules'] = 'required';
 			$i++;
 	    }
@@ -212,7 +223,7 @@ class Site_Quiz extends Public_Controller {
 				// Redirect after add
 				//redirect('admin/user');				
 
-				redirect('quiz','refresh');
+				redirect('quiz?refresh=true','refresh');
 
 	   		}
 
@@ -249,7 +260,10 @@ class Site_Quiz extends Public_Controller {
 							];
 	
 		// Load js execution
-		$data['js_inline'] = "/*
+		$data['js_inline'] = "
+
+							  ". (!$this->participant ? "$('.popup_account').click();" : '') ."
+							  /*
 							   * Example 2:
 							   *   - default gradient
 							   *   - listening to `circle-animation-progress` event and display the animation progress: from 0 to 100%
@@ -293,7 +307,7 @@ class Site_Quiz extends Public_Controller {
 							          };
 
 							          // The url for our json data
-							          var jsonurl = '".base_url('quest')."/gallery/' + quest_id;
+							          var jsonurl = '".base_url('quiz')."/gallery/' + quest_id;
 
 							          // passing in the url string as the jqPlot data argument is a handy
 							          // shortcut for our renderer.  You could also have used the
@@ -363,7 +377,7 @@ class Site_Quiz extends Public_Controller {
 							userform.find('input').prop(\"disabled\", true);
 							setTimeout(function() {
 														// Do something after 5 seconds
-								window.location.href = base_URL + 'quest';
+								window.location.href = base_URL + 'quiz';
 							}, 2000);
 						} else {
 							userform.find('input').prop(\"disabled\", false);
@@ -400,41 +414,8 @@ class Site_Quiz extends Public_Controller {
 	// Redirect if particpant already participated
 	public function participated () {
 		
-		// Check if attachment is already existed
-		if ($this->answers) {
-
-			// Redirect Participant already participated
-			redirect('quiz/gallery');
-
-		}	
-
-		// Set Gallery Data
-		$data['gallery'] 		= $this->Attachments->getAllAttachment('fabric');
-
-		// Set Participated Data
-		$data['attachment'] 	= $this->attachment;
-
-		// Set main template
-		$data['main'] 			= 'fabric';
-
-		// Set Body Class
-		$data['body_class']		= 'bg-quiz-page';
-
-	    // Set site title page with module menu
-		$data['page_title'] 	= 'Fabric Canvas Gallery';
-
-	    // Load qr code js execution
-		$data['js_inline'] 		= "$('#fancybox').fancybox();
-		$('.li-participated').hover(function(e){
-			e.preventDefault();
-			$(this).find('.participated').show();
-		},function(e){
-			e.preventDefault();
-			$(this).find('.participated').hide();
-		})";
-
-		// Load site template
-		$this->load->view('template/public/template', $this->load->vars($data));
+		usleep(500000);
+		redirect('quiz?refresh=true','refresh');
 
 	}
 
