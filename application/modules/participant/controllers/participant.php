@@ -23,7 +23,10 @@ class Participant extends Admin_Controller {
             // Set tables
             $crud->set_table($this->Participants->table)->order_by('join_date','desc');
             // Set CRUD subject
-            $crud->set_subject('Participant');                            
+            $crud->set_subject('Participant');
+            // Set table relation
+            // $crud->set_relation('questionnaire','tbl_questionnaire_user_answers','{email} ({name})',array('status' => '1'),'priority ASC');
+            // $crud->set_relation('question_id','tbl_questions','question_text',array('status' => '1'),'priority ASC');                            
             // Set table relation
             //$crud->set_relation('province','tbl_provinces','name');
             // Set table relation

@@ -9,9 +9,12 @@ class Participant_Answer extends Admin_Controller {
             // Load Participant model
             $this->load->model('participant/Participants');
 
-            // Load Gallery model
+            // Load Answer model
             $this->load->model('participant/Answers');
 
+            // Load Questionnaire model
+            $this->load->model('questionnaire/Questionnaires');
+            
             // Load Grocery CRUD
             $this->load->library('grocery_CRUD');
 
@@ -36,10 +39,12 @@ class Participant_Answer extends Admin_Controller {
             // Set CRUD subject
             $crud->set_subject('Answer');                            
             // Set table relation
-            $crud->set_relation('participant_id','tbl_participants','email',array('status' => '1'),'priority ASC');
+            $crud->set_relation('participant_id','tbl_participants','{email} ({name})',array('status' => '1'),'priority ASC');
+            //$crud->set_relation('','tbl_questionnaires','questionnaire_text',array('status' => '1'),'priority ASC');
+            //$crud->set_relation_n_n('questionnaries', 'tbl_questionnaire_completed', 'tbl_questionnaires', 'participant_id', 'id', 'name');
             $crud->set_relation('question_id','tbl_questions','question_text',array('status' => '1'),'priority ASC');
             // Set column
-			$crud->columns('participant_id', 'question_id', 'status', 'added','modified');
+	    $crud->columns('participant_id','questionnaires','question_id','status','added','modified');
 			
 			// Set column display 
             //$crud->display_as('menu_id','Menu');
@@ -67,7 +72,8 @@ class Participant_Answer extends Admin_Controller {
 			// Set upload field
             $crud->set_field_upload('file_name','uploads/participants');
 
-			$crud->edit_fields('status','modified');			
+			$crud->edit_fields('status','modified');	
+			$crud->callback_column('questionnaires',array($this,'_callback_questionnaire'));		
 			$crud->callback_column('added',array($this,'_callback_time'));
 			$crud->callback_column('modified',array($this,'_callback_time'));
 			//$crud->callback_column('file_name',array($this,'_callback_filename'));
@@ -135,7 +141,11 @@ class Participant_Answer extends Admin_Controller {
         //$total = $this->user_model->total_image_submitted($row->participant_id);
         //return $total;
     }
-	
+    
+    public function _callback_questionnaire ($value, $row) {
+    	
+    	return $this->Questionnaires->getQuestionnaire($row->user_questionnaire_id)->questionnaire_text;
+    }
 	public function _send_email() {
 			
 
